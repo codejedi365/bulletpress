@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132681864-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-132681864-1');
+  </script>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>EPR Checker</h1>
+      <h5>A bullet analysis tool</h5>
+    </div>
+    <div class="input-area">
+      <div class="input-text" id="input" contentEditable="true"></div>
+    </div>
+    <div class="instruction-area">
+      <h3>Instructions</h3>
+      <p>This tool looks at bullets in the textbox on the left and provides metadata and analysis of them in the tabs on
+        the right.</p>
+      <p>To get started, add some bullets to the textbox on the left. The information on the right will be automatically
+        updated as you edit or add to the bullets.</p>
+      <br>
+      <p>There are currently four types of information that are provided:</p>
+      <p><b>Abbreviation conflicts:</b> this is a list of words whose letters can all be found in other words. <b>Bold
+          pairs of words</b> include one or more words not normally found in a dictionary, increasing the likelihood
+        that an abbreviation was used.</p>
+      <p><b>Acronyms:</b> this is a list of all fully capitalized words found in the bullets. If you type a description
+        into an acronym's text box, this will cause that acronym and its description to appear in the generated remarks
+        section found below the acronym list.</p>
+      <p><b>Word counts:</b> this is a list of all words and their number of occurrences in the text. This can sometimes
+        help call out word overuse, i.e. the bullets using the same words start sounding the same.</p>
+      <p><b>Numbers:</b> this is a list of all of numbers found in the bullets. This is mostly just for informational
+        purposes.</p>
+    </div>
+    <div class="output-area">
+      <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'abbreviation-conflicts')">Abbreviation
+          Conflicts</button>
+        <button class="tablinks" onclick="openTab(event, 'acronyms')">Acronyms</button>
+        <button class="tablinks" onclick="openTab(event, 'word-counts')">Word Counts</button>
+        <button class="tablinks" onclick="openTab(event, 'numbers')">Numbers</button>
+      </div>
+      <div id="abbreviation-conflicts" class="tabcontent"></div>
+      <div id="acronyms" class="tabcontent"></div>
+      <div id="word-counts" class="tabcontent"></div>
+      <div id="numbers" class="tabcontent"></div>
+      <div id="dictionary-status"></div>
+    </div>
+    <div class="footer">
+      <p>Version 0.3.3 | Please report any issues/bugs here: <a
+          href="https://github.com/crossedxd/epr-checker/issues">GitHub</a></p>
+    </div>
+  </div>
+
+  <script src="epr-checker.js"></script>
+</body>
+
+</html>
