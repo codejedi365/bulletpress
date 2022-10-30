@@ -11,12 +11,51 @@ const DestinationPkgEnum = Object.freeze({
 }.bind(window, function () {
 
   // Lazy Loaded
+  let tutorial = null;
   let workbench = null;
   let displayArea = null;
   let themeSwitch = null;
   let destRuleSet = null;
   let textRuler = null;
   let wordsearch = null;
+
+  function getTutorial() {
+    if (tutorial === null) {
+      let btnShowTutorial = document.getElementById('btn-show-tutorial');
+      let btnHideTutorial = document.getElementById('btn-hide-tutorial');
+      let tutorialElement = document.getElementById('tutorial');
+      let tutorialContent = tutorialElement.querySelector(".accordion-content");
+
+      function isVisible() {
+        return tutorialContent.classList.contains("expanded");
+      }
+      function showTutorial() {
+        if (!isVisible()) {
+          tutorialContent.classList.add('expanded');
+          btnShowTutorial.parentElement.classList.remove('clickable');
+        }
+      }
+      function hideTutorial() {
+        if (isVisible()) {
+          tutorialContent.classList.remove('expanded');
+          btnShowTutorial.parentElement.classList.add('clickable');
+        }
+      }
+
+      tutorial = Object.freeze({
+        isVisible,
+        showTutorial,
+        hideTutorial,
+        showBtn: {
+          onclick: function (func) { btnShowTutorial.addEventListener('click', func); }
+        },
+        hideBtn: {
+          onclick: function (func) { btnHideTutorial.addEventListener('click', func); }
+        }
+      })
+    }
+    return tutorial;
+  }
 
   function getWorkBench() {
     if (workbench === null) {
@@ -223,6 +262,7 @@ const DestinationPkgEnum = Object.freeze({
   }
 
   return {
+    get tutorial() { return getTutorial() },
     get destPkg() { return getDestRuleSet().ruleStyle; },
     get textArea() { return getWorkBench(); },
     get displayArea() { return getDisplayArea(); },
@@ -360,6 +400,12 @@ document.onreadystatechange = function () {
         bulletPress(gui.textArea.value).join('')
       );
     });
+    gui.tutorial.showBtn.onclick(() => {
+      gui.tutorial.showTutorial();
+    })
+    gui.tutorial.hideBtn.onclick(() => {
+      gui.tutorial.hideTutorial();
+    })
     gui.themeSwitch.onclick(() => {
       gui.themeSwitch.changeMode();
     });

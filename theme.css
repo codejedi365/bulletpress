@@ -202,3 +202,44 @@ body.light code {
 .clickable {
     cursor: pointer;
 }
+
+.abspos-parent {
+    position: relative;
+}
+.abspos {
+    position: absolute;
+}
+.abspos.center-horizontal {
+    left: 50%;
+    transform: translateX(-50%);
+}
+.abspos.center-vertical {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.accordion-close-btn.abspos-parent {
+    padding: 0 10%;
+    display: flow-root;
+}
+.arrow-up-close-icon.abspos-parent {
+    border-radius: 50%;
+    padding: 0.5em 0.25em;
+    width: 5ch;
+    display: block;
+    height: 2em;
+    border: 0.5px solid;
+}
+.arrow-up-close-icon > span.abspos.center-horizontal {
+    background-color: transparent;
+    transform: translate(-48%, -.7ch);
+    font-size: 4.5ch;
+}
+.accordion-close-btn hr { border-top: 2px solid; }
+
+.accordion { overflow: hidden; }
+.accordion-content { margin-top: -200%; transition: all 2s; }
+.accordion-content.slow { transition: all 5s; }
+.accordion-content.normal { transition: all 2s; }
+.accordion-content.fast { transition: all 0.5s; }
+.accordion-content.expanded { margin-top: 0; }
