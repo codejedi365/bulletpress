@@ -36,116 +36,118 @@
             <div class="ball secondary-color"></div>
           </label>
         </span>
-        <span style="position: absolute; height: 4em; top: 0.5em;">
-          <label style="cursor: pointer; height: 100%;">
-            <button style="display: none;" type="button" data-toggle="collapse" data-target="#tutorial"></button>
-            <img src="icons/icon-help.png" alt="Tutorial Toggle Button" style="height: 100%;">
+        <span class="abspos" style="height: 4em; top: 0.5em;">
+          <label style="height: 100%;" class="clickable">
+            <button id="btn-show-tutorial" style="display: none;"></button>
+            <img src="icons/icon-help.png" alt="Tutorial Toggle Button" style="height: 100%;" title="Show Tutorial">
           </label>
         </span>
       </div>
-      <div id="tutorial" class="primary-color collapse card card-body">
-        <h3>Tutorial</h3>
+      <div id="tutorial" class="accordion">
+        <div class="accordion-content primary-color card card-body">
+          <h3>Tutorial</h3>
 
-        <h4>Requirements</h4>
-        <p>
-          You must have the Times New Roman font installed on your machine.  It's not open-source,
-          so I cannot provide it as part of the application.  Your browser must support canvas
-          (it likely does).
-        </p>
-        <hr/>
-        <h4>Step 1: Draft</h4>
-        <p>
-          Start with the information you want to convey - you may get 'No bullets of length/all
-          bullets over length' - this is fine to start.
-        </p>
-        <p class='secondary-color code card card-body'>
-          Modernized award/annual review process; devoted 80hrs/engineered app--established AF-wide SOP/saved 3,500 man-hours annually
-        </p>
-        <hr/>
-        <h4>Step 2: Optionalize</h4>
-        <p>
-          You can then begin to create substitutions by separating sections that can be substituted/reworded/omitted
-          onto their own lines, and chaining options on the same line with pipes (|).  You can also
-          make certain blocks 'optional' by placing a trailing pipe with no option after it.  Example:
-        </p>
-        <p class='secondary-color code card card-body'>
-          Modernized|Overhauled|Streamlined<br/>
-          award|awd<br/>
-          /<br/>
-          annual|yearly<br/>
-          review <br/>
-          process|proc<br/>
-          ; <br/>
-          devoted|dedicated<br/>
-          80hrs/<br/>
-          engineered|dev'd<br/>
-          app<br/>
-          --<br/>
-          established<br/>
-          AF-wide|total-force<br/>
-          SOP<br/>
-          /saved <br/>
-          3,500|3.5K|4K<br/>
-          hrs<br/>
-          annually|<br/>
-        </p>
-        <p>
-          As you begin to do this, Bulletpress will start chewing through every possible permutation
-          of the bullet you wrote and begin spitting out bullets that meet the line-fill requirement
-          (sorted by how close to the line they are). This is your brainstorming phase, so every idea
-          is a good idea to start. Once your browser starts lagging because you have too many options,
-          that's a good sign you should move to the next step.
-        </p>
-        <hr/>
-        <h4>Step 3: Prune</h4>
-        <p>
-          Look at your top bullets and highlight the weakest portions of them.  Remove those options
-          entirely until you're left with around 10 or fewer outputs.  Example:
-        </p>
-        <p class='secondary-color code card card-body'>
-          Modernized|Overhauled<br/>
-          awd<br/>
-          /<br/>
-          annual|yearly<br/>
-          review <br/>
-          process|proc<br/>
-          ; <br/>
-          devoted|dedicated<br/>
-          80hrs/<br/>
-          engineered|dev'd<br/>
-          app<br/>
-          --<br/>
-          established<br/>
-          AF-wide|total-force<br/>
-          SOP<br/>
-          /saved <br/>
-          3.5K|4K <br/>
-          hrs<br/>
-        </p>
-        <p>Pruning just a few options leaves me with only 4 outputs:</p>
-        <p class='secondary-color times card card-body'>
-          - Modernized awd/annual review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
-          - Overhauled awd/annual review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
-          - Modernized awd/yearly review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
-          - Overhauled awd/yearly review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
-        </p>
-        <hr/>
-        <h4>Step 4: Iterate</h4>
-        <p>
-          First, <i>retain all the information you entered</i>, even if your remaining outputs
-          don't use all of it.  This will allow you to skip most of step 2 as you add information,
-          strip information, adjust the impact, discover new approved abbreviations, etc. Second,
-          now that you've got draft 1 of your bullet, jump back into step 2 and work on it to
-          make a slightly stronger version.  Bulletpress can't remove the amount a bullet will be
-          iterated on, but it can make the time required to iterate on a bullet significantly less.
-        </p>
-        <div class="accordion-close-btn abspos-parent">
-          <span class="abspos center-horizontal clickable" title="Close Tutorial">
-            <span class="arrow-up-close-icon abspos-parent secondary-color">
-              <span class="abspos center-horizontal">^</span>
+          <h4>Requirements</h4>
+          <p>
+            You must have the Times New Roman font installed on your machine.  It's not open-source,
+            so I cannot provide it as part of the application.  Your browser must support canvas
+            (it likely does).
+          </p>
+          <hr/>
+          <h4>Step 1: Draft</h4>
+          <p>
+            Start with the information you want to convey - you may get 'No bullets of length/all
+            bullets over length' - this is fine to start.
+          </p>
+          <p class='secondary-color code card card-body'>
+            Modernized award/annual review process; devoted 80hrs/engineered app--established AF-wide SOP/saved 3,500 man-hours annually
+          </p>
+          <hr/>
+          <h4>Step 2: Optionalize</h4>
+          <p>
+            You can then begin to create substitutions by separating sections that can be substituted/reworded/omitted
+            onto their own lines, and chaining options on the same line with pipes (|).  You can also
+            make certain blocks 'optional' by placing a trailing pipe with no option after it.  Example:
+          </p>
+          <p class='secondary-color code card card-body'>
+            Modernized|Overhauled|Streamlined<br/>
+            award|awd<br/>
+            /<br/>
+            annual|yearly<br/>
+            review <br/>
+            process|proc<br/>
+            ; <br/>
+            devoted|dedicated<br/>
+            80hrs/<br/>
+            engineered|dev'd<br/>
+            app<br/>
+            --<br/>
+            established<br/>
+            AF-wide|total-force<br/>
+            SOP<br/>
+            /saved <br/>
+            3,500|3.5K|4K<br/>
+            hrs<br/>
+            annually|<br/>
+          </p>
+          <p>
+            As you begin to do this, Bulletpress will start chewing through every possible permutation
+            of the bullet you wrote and begin spitting out bullets that meet the line-fill requirement
+            (sorted by how close to the line they are). This is your brainstorming phase, so every idea
+            is a good idea to start. Once your browser starts lagging because you have too many options,
+            that's a good sign you should move to the next step.
+          </p>
+          <hr/>
+          <h4>Step 3: Prune</h4>
+          <p>
+            Look at your top bullets and highlight the weakest portions of them.  Remove those options
+            entirely until you're left with around 10 or fewer outputs.  Example:
+          </p>
+          <p class='secondary-color code card card-body'>
+            Modernized|Overhauled<br/>
+            awd<br/>
+            /<br/>
+            annual|yearly<br/>
+            review <br/>
+            process|proc<br/>
+            ; <br/>
+            devoted|dedicated<br/>
+            80hrs/<br/>
+            engineered|dev'd<br/>
+            app<br/>
+            --<br/>
+            established<br/>
+            AF-wide|total-force<br/>
+            SOP<br/>
+            /saved <br/>
+            3.5K|4K <br/>
+            hrs<br/>
+          </p>
+          <p>Pruning just a few options leaves me with only 4 outputs:</p>
+          <p class='secondary-color times card card-body'>
+            - Modernized awd/annual review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
+            - Overhauled awd/annual review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
+            - Modernized awd/yearly review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
+            - Overhauled awd/yearly review process; dedicated 80hrs/engineered app--established total-force SOP/saved 3.5K hrs<br/>
+          </p>
+          <hr/>
+          <h4>Step 4: Iterate</h4>
+          <p>
+            First, <i>retain all the information you entered</i>, even if your remaining outputs
+            don't use all of it.  This will allow you to skip most of step 2 as you add information,
+            strip information, adjust the impact, discover new approved abbreviations, etc. Second,
+            now that you've got draft 1 of your bullet, jump back into step 2 and work on it to
+            make a slightly stronger version.  Bulletpress can't remove the amount a bullet will be
+            iterated on, but it can make the time required to iterate on a bullet significantly less.
+          </p>
+          <div class="accordion-close-btn abspos-parent">
+            <span id="btn-hide-tutorial" class="abspos center-horizontal clickable" title="Close Tutorial">
+              <span class="arrow-up-close-icon abspos-parent secondary-color">
+                <span class="abspos center-horizontal">^</span>
+              </span>
             </span>
-          </span>
-          <hr>
+            <hr>
+          </div>
         </div>
       </div>
       <hr />

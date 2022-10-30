@@ -220,6 +220,7 @@ body.light code {
 
 .accordion-close-btn.abspos-parent {
     padding: 0 10%;
+    display: flow-root;
 }
 .arrow-up-close-icon.abspos-parent {
     border-radius: 50%;
@@ -235,3 +236,10 @@ body.light code {
     font-size: 4.5ch;
 }
 .accordion-close-btn hr { border-top: 2px solid; }
+
+.accordion { overflow: hidden; }
+.accordion-content { margin-top: -200%; transition: all 2s; }
+.accordion-content.slow { transition: all 5s; }
+.accordion-content.normal { transition: all 2s; }
+.accordion-content.fast { transition: all 0.5s; }
+.accordion-content.expanded { margin-top: 0; }
