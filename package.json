@@ -1,0 +1,19 @@
+{
+  "name": "bulletpress",
+  "version": "0.0.0-semantically-versioned",
+  "description": "WebApp for interactive Air Force Performance Report (OPR/EPR) bullet editing",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codejedi365/bulletpress.git"
+  },
+  "author": "codejedi365 <codejedi365@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codejedi365/bulletpress/issues"
+  },
+  "homepage": "https://codejedi365.github.io/bulletpress"
+}
