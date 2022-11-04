@@ -1,0 +1,14 @@
+name: Deliver
+# privileged workflow that is restricted to production
+
+on:
+  workflow_run:
+    workflows: [ Push ]
+    types: [ completed ]
+    branches: [ production ]
+
+jobs:
+
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    uses: ./.github/workflows/pages.yml
