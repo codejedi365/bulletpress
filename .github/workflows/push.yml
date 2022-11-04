@@ -1,0 +1,10 @@
+name: Push
+# Unprivileged workflow
+
+on:
+  push:
+    # Allow all branches to have validation
+
+jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
