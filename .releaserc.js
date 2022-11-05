@@ -22,7 +22,14 @@ module.exports = {
             }
         ],
         "@semantic-release/release-notes-generator",
-        // "@semantic-release/changelog",
-        "@semantic-release/github"
+        [
+            "semantic-release-plugin-update-version-in-files", {
+                files: [
+                    "public/index.html"
+                ],
+                placeholder: "0.0.0-dev"
+            }
+        ],
+        "@semantic-release/github",
     ]
 };
