@@ -1,5 +1,5 @@
 module.exports = {
-    branches: [ "production", "next" ],
+    branches: [ "master" ],
     plugins: [
         [
             "@semantic-release/commit-analyzer",
@@ -31,6 +31,17 @@ module.exports = {
                 placeholder: "0.0.0-semantically-versioned"
             }
         ],
-        "@semantic-release/github",
+        [
+            "@semantic-release/exec", {
+                prepareCmd: "npm pack"
+            }
+        ],
+        [
+            "@semantic-release/github", {
+                assets: [
+                    { label: "Offline Bulletpress App", path: "bulletpress-*.tgz" }
+                ]
+            }
+        ]
     ]
 };

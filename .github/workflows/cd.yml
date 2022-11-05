@@ -1,17 +1,21 @@
 name: Deliver
-# privileged workflow that is restricted to production
+# privileged workflow that is restricted to master
 
 on:
   workflow_run:
     workflows: [ Push ]
     types: [ completed ]
-    branches: [ production ]
+    branches: [ master ]
 
 jobs:
 
   release:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     outputs:
       NEW_RELEASE: ${{ steps.semantic-release.outputs.NEW_RELEASE }}
     steps:
@@ -31,22 +35,21 @@ jobs:
 
       - name: Run semantic-release
         id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           npx semantic-release --debug
-          echo 'NEW_RELEASE=<<EOF' >> $GITHUB_ENV
-          node -e 'console.log(!/^0\.0\.0/.test(require("./package.json").version))' >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          echo 'NEW_RELEASE<<EOF' >> $GITHUB_OUTPUT
+          node -e 'console.log(!/^0\.0\.0/.test(require("./package.json").version))' >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
-      - name: Upload new version as artifact to deploy
-        if: ${{ steps.semantic-release.outputs.NEW_RELEASE == 'true' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: site-src
-          path: ./public
-          retention-days: 1
 
   deploy:
     name: Trigger GitHub Pages Publishing Workflow
     needs: release
     if: ${{ needs.release.outputs.NEW_RELEASE == 'true' }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     uses: ./.github/workflows/pages.yml
