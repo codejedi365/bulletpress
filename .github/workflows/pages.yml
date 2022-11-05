@@ -19,22 +19,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download artifact from Deliver workflow
-        uses: dawidd6/action-download-artifact@v2
+      - name: Download artifact from Releases
+        uses: dsaltares/fetch-gh-release-asset@1.1.0
         with:
-          workflow: cd.yml
-          workflow_conclusion: "in_progress"
-          name: site-src
-          path: ./public
+          file: bulletpress-.*\.tgz
+          regex: true
+
+      - name: Unpack published package
+        run: tar -xzvf ./bulletpress-*.tgz
+
       - name: Setup Pages
         uses: actions/configure-pages@v2
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./public
+          source: ./package/public
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

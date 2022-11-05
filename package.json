@@ -3,6 +3,9 @@
   "version": "0.0.0-semantically-versioned",
   "description": "WebApp for interactive Air Force Performance Report (OPR/EPR) bullet editing",
   "private": "true",
+  "files": [
+    "public/*"
+  ],
   "scripts": {
     "commit": "git commit",
     "commit-retry": "CZ_RETRY=true git commit",
@@ -24,6 +27,7 @@
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@commitlint/cz-commitlint": "^17.1.2",
+    "@semantic-release/exec": "^6.0.3",
     "commitizen": "^4.2.5",
     "husky": "^8.0.1",
     "is-ci": "^3.0.1",
