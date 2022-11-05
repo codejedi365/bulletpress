@@ -60,7 +60,7 @@ jobs:
       - name: Commits lint check
         if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
         env:
-          BASE_COMMIT_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          BASE_COMMIT_SHA: ${{ github.event.pull_request.base.sha || github.event.push.commits[0].id }}
           NEWEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
         run: npx commitlint --verbose
              --from "$BASE_COMMIT_SHA"
