@@ -32,12 +32,21 @@ jobs:
 
   lint-commits:
     name: Semantic commits
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Determine PR Fetch Depth
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "FETCH_DEPTH=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> $GITHUB_ENV
+
+      - name: Determine Push Fetch Depth
+        if: ${{ github.event_name == 'push' }}
+        run: echo "FETCH_DEPTH=$(( ${{ github.event.push.commits }} + 1 ))" >> $GITHUB_ENV
+
       - name: git checkout HEAD
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{ env.FETCH_DEPTH }}
 
       - name: Use Node.js
         uses: actions/setup-node@v3
