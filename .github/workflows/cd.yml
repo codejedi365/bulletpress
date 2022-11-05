@@ -1,0 +1,55 @@
+name: Deliver
+# privileged workflow that is restricted to master
+
+on:
+  workflow_run:
+    workflows: [ Push ]
+    types: [ completed ]
+    branches: [ master ]
+
+jobs:
+
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    outputs:
+      NEW_RELEASE: ${{ steps.semantic-release.outputs.NEW_RELEASE }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run semantic-release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          npx semantic-release --debug
+          echo 'NEW_RELEASE<<EOF' >> $GITHUB_OUTPUT
+          node -e 'console.log(!/^0\.0\.0/.test(require("./package.json").version))' >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+
+
+  deploy:
+    name: Trigger GitHub Pages Publishing Workflow
+    needs: release
+    if: ${{ needs.release.outputs.NEW_RELEASE == 'true' }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

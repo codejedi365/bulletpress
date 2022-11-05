@@ -1,0 +1,245 @@
+:root {
+    --light-primary-bg: #FFFFFF;
+    --light-secondary-bg: #DDDDDD;
+    --light-tertiary-bg: #999999;
+    --light-fg: #000000;
+    --light-error: rgb(228, 6, 6);
+    --light-warning: rgb(203, 147, 18);
+    --light-success: green;
+    --light-help-bg: rgb(253, 239, 191);
+    --dark-primary-bg: #333333;
+    --dark-secondary-bg: #555555;
+    --dark-tertiary-bg: #AAAAAA;
+    --dark-fg: #CCCCCC;
+    --dark-error: rgb(230, 95, 95);
+    --dark-warning: rgb(200, 180, 4);
+    --dark-success: darkgreen;
+    --dark-help-bg: rgb(158, 143, 91);
+}
+
+body * {
+    color: inherit;
+    background-color: inherit;
+}
+
+body.dark {
+    background-color: var(--light-fg);
+    color: var(--dark-fg);
+}
+
+body.dark hr {
+    background-color: var(--dark-secondary-bg);
+}
+
+body.dark .primary-color {
+    background-color: var(--dark-primary-bg);
+    color: var(--dark-fg);
+}
+
+body.dark .secondary-color {
+    background-color: var(--dark-secondary-bg);
+    color: var(--dark-fg);
+}
+
+body.dark .tertiary-color {
+    background-color: var(--dark-tertiary-bg);
+    color: var(--dark-primary-bg);
+}
+
+body.dark .helpbox {
+    background-color: var(--dark-help-bg);
+    color: var(--light-fg);
+}
+
+body.dark .arrow-up {
+    border-bottom-color: var(--dark-tertiary-bg);
+}
+
+body.dark .error-font {
+    color: var(--dark-error);
+    font-weight: bolder;
+}
+
+body.dark .warning-font {
+    color: var(--dark-warning);
+    font-weight: bolder;
+}
+
+body.dark .success-font {
+    color: var(--dark-success);
+    font-weight: bolder;
+}
+
+body.light {
+    background-color: var(--dark-fg);
+    color: var(--light-fg);
+}
+
+body.light .primary-color {
+    background-color: var(--light-primary-bg);
+    color: var(--light-fg);
+}
+
+body.light .secondary-color {
+    background-color: var(--light-secondary-bg);
+    color: var(--light-fg);
+}
+
+body.light .tertiary-color {
+    background-color: var(--light-tertiary-bg);
+    color: var(--light-primary-bg);
+}
+
+body.light .helpbox {
+    background-color: var(--light-help-bg);
+}
+
+body.light .arrow-up {
+    border-bottom-color: var(--light-tertiary-bg);
+}
+
+body.light .error-font {
+    color: var(--light-error);
+    font-weight: bolder;
+}
+
+body.light .warning-font {
+    color: var(--light-warning);
+    font-weight: bolder;
+}
+
+body.light .success-font {
+    color: var(--light-success);
+    font-weight: bolder;
+}
+
+body.dark .dark-theme-show {
+    display: initial;
+}
+
+body.light .light-theme-show {
+    display: initial;
+}
+
+body.dark code {
+    background-color: var(--dark-tertiary-bg);
+    padding: 0.25ch;
+    border-radius: 0.5ch;
+}
+
+body.light code {
+    background-color: var(--light-tertiary-bg);
+    padding: 0.25ch;
+    border-radius: 0.5ch;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left-width: 2ch;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-width: 2ch;
+    border-right-style: solid;
+    border-right-color: transparent;
+
+    border-bottom-width: 2ch;
+    border-bottom-style: solid;
+    border-bottom-color: inherit;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left-width: 2ch;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-width: 2ch;
+    border-right-style: solid;
+    border-right-color: transparent;
+
+    border-top-width: 2ch;
+    border-top-style: solid;
+    border-top-color: inherit;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top-width: 2ch;
+    border-top-style: solid;
+    border-top-color: transparent;
+    border-bottom-width: 2ch;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+
+    border-left-width: 2ch;
+    border-left-style: solid;
+    border-left-color: inherit;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top-width: 2ch;
+    border-top-style: solid;
+    border-top-color: transparent;
+    border-bottom-width: 2ch;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+
+    border-right-width: 2ch;
+    border-right-style: solid;
+    border-right-color: inherit;
+}
+
+.code {
+    font-family: monospace;
+    font-size: 11pt;
+    line-height: 1.2;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.abspos-parent {
+    position: relative;
+}
+.abspos {
+    position: absolute;
+}
+.abspos.center-horizontal {
+    left: 50%;
+    transform: translateX(-50%);
+}
+.abspos.center-vertical {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.accordion-close-btn.abspos-parent {
+    padding: 0 10%;
+    display: flow-root;
+}
+.arrow-up-close-icon.abspos-parent {
+    border-radius: 50%;
+    padding: 0.5em 0.25em;
+    width: 5ch;
+    display: block;
+    height: 2em;
+    border: 0.5px solid;
+}
+.arrow-up-close-icon > span.abspos.center-horizontal {
+    background-color: transparent;
+    transform: translate(-48%, -.7ch);
+    font-size: 4.5ch;
+}
+.accordion-close-btn hr { border-top: 2px solid; }
+
+.accordion { overflow: hidden; }
+.accordion-content { margin-top: -200%; transition: all 2s; }
+.accordion-content.slow { transition: all 5s; }
+.accordion-content.normal { transition: all 2s; }
+.accordion-content.fast { transition: all 0.5s; }
+.accordion-content.expanded { margin-top: 0; }
