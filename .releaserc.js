@@ -39,7 +39,7 @@ module.exports = {
         [
             "@semantic-release/github", {
                 assets: [
-                    { label: "Offline Bulletpress App", path: "bulletpress-*.tgz" }
+                    { label: "Bulletpress App [offline-pkg]", path: "bulletpress-*.tgz" }
                 ]
             }
         ]
