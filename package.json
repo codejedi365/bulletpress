@@ -1,0 +1,33 @@
+{
+  "name": "bulletpress",
+  "version": "0.0.0-semantically-versioned",
+  "description": "WebApp for interactive Air Force Performance Report (OPR/EPR) bullet editing",
+  "private": "true",
+  "scripts": {
+    "commit": "git commit",
+    "commit-retry": "CZ_RETRY=true git commit",
+    "start": "python3 -m http.server --bind 127.0.0.1 --directory ./public &; open http://127.0.0.1:8000/index.html 2>&1 >/dev/null",
+    "prepare": "is-ci || husky install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codejedi365/bulletpress.git"
+  },
+  "author": "codejedi365 <codejedi365@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codejedi365/bulletpress/issues"
+  },
+  "homepage": "https://codejedi365.github.io/bulletpress",
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@commitlint/cz-commitlint": "^17.1.2",
+    "commitizen": "^4.2.5",
+    "husky": "^8.0.1",
+    "is-ci": "^3.0.1",
+    "semantic-release": "^19.0.5",
+    "semantic-release-plugin-update-version-in-files": "^1.1.0"
+  }
+}

@@ -1,0 +1,52 @@
+name: Deliver
+# privileged workflow that is restricted to production
+
+on:
+  workflow_run:
+    workflows: [ Push ]
+    types: [ completed ]
+    branches: [ production ]
+
+jobs:
+
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    outputs:
+      NEW_RELEASE: ${{ steps.semantic-release.outputs.NEW_RELEASE }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run semantic-release
+        id: semantic-release
+        run: |
+          npx semantic-release --debug
+          echo 'NEW_RELEASE=<<EOF' >> $GITHUB_ENV
+          node -e 'console.log(!/^0\.0\.0/.test(require("./package.json").version))' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Upload new version as artifact to deploy
+        if: ${{ steps.semantic-release.outputs.NEW_RELEASE == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: site-src
+          path: ./public
+          retention-days: 1
+
+  deploy:
+    name: Trigger GitHub Pages Publishing Workflow
+    needs: release
+    if: ${{ needs.release.outputs.NEW_RELEASE == 'true' }}
+    uses: ./.github/workflows/pages.yml
