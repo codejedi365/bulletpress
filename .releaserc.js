@@ -25,9 +25,10 @@ module.exports = {
         [
             "semantic-release-plugin-update-version-in-files", {
                 files: [
-                    "public/index.html"
+                    "public/index.html",
+                    "package.json"
                 ],
-                placeholder: "0.0.0-dev"
+                placeholder: "0.0.0-semantically-versioned"
             }
         ],
         "@semantic-release/github",
