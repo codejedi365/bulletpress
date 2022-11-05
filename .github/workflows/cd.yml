@@ -33,7 +33,7 @@ jobs:
         id: semantic-release
         run: |
           npx semantic-release --debug
-          echo 'NEW_RELEASE<<EOF' >> $GITHUB_ENV
+          echo 'NEW_RELEASE=<<EOF' >> $GITHUB_ENV
           node -e 'console.log(!/^0\.0\.0/.test(require("./package.json").version))' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
