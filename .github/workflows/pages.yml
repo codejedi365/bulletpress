@@ -21,6 +21,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Download artifact from Deliver workflow
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: cd.yml
+          workflow_conclusion: "in_progress"
+          name: site-src
+          path: ./public
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
