@@ -63,13 +63,14 @@ module.exports = {
         ],
         [
             "@semantic-release/exec", {
-                prepareCmd: "npm pack"
+                prepareCmd: "npm pack && sha256sum --binary bulletpress-*.tgz > checksums.txt"
             }
         ],
         [
             "@semantic-release/github", {
                 assets: [
-                    { label: "Bulletpress App [offline-pkg]", path: "bulletpress-*.tgz" }
+                    { label: "Bulletpress App [offline-pkg]", path: "bulletpress-*.tgz" },
+                    { label: "Checksums [SHA-256]", path: "checksums.txt" }
                 ]
             }
         ]
