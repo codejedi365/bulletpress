@@ -1,3 +1,9 @@
+let angularWriterOpts = null;
+Promise.all([require("conventional-changelog-angular/writer-opts")]).then((module) => {
+    // Must resolve the Promises of module.exports in conventional-changelog-angular@5.0.13
+    angularWriterOpts = module.pop();
+});
+
 module.exports = {
     branches: [ "master" ],
     plugins: [
@@ -21,7 +27,31 @@ module.exports = {
                 ]
             }
         ],
-        "@semantic-release/release-notes-generator",
+        [
+            "@semantic-release/release-notes-generator", {
+                preset: "angular",
+                writerOpts: {
+                    transform: (commit, context) => {
+                        // Modify transform to include non-breaking Documentation / Build changes in Changelog
+                        // This wrapper was based the implementation of conventional-changelog-angular@5.0.13
+                        const initCommitTransform = angularWriterOpts.transform(commit, context)
+                        if (initCommitTransform) return initCommitTransform
+                        // Determine if commit should be in the changelog, logic should match releaseRules above!
+                        if (!/^(build|docs)$/.test(commit.type)) return
+                        if (commit.type === "build" && !/^deps(-peer)?$/.test(commit.scope)) return
+                        if (commit.type === "docs" && !/^(README|LICENSE)$/i.test(commit.scope)) return
+                        // Trigger internal flag 'discard' to be false as it thinks
+                        // there is a Breaking Change in this commit
+                        commit.notes.push({})
+                        // Re-run the original transform
+                        const transformedCommit = angularWriterOpts.transform(commit, context)
+                        transformedCommit.notes.pop() // Reset
+                        // return transformed commit instead of None
+                        return transformedCommit
+                    }
+                }
+            }
+        ],
         [
             "semantic-release-plugin-update-version-in-files", {
                 files: [
