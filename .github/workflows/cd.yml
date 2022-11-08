@@ -33,6 +33,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.BOT_GPG_PASSPHRASE }}
+          git_tag_gpgsign: true
+
       - name: Run semantic-release
         id: semantic-release
         env:
