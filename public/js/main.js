@@ -60,11 +60,82 @@ const DestinationPkgEnum = Object.freeze({
   function getWorkBench() {
     if (workbench === null) {
       let element = document.getElementById('textArea');
+
+      function processPasteOnWorkbench(pastedText, selectedText, selectionStartPos) {
+        let currentText = element.value;
+        if (currentText.length > 0) {
+          // Data exists in textArea
+          let newText = "";
+          if (selectedText.length === 0) {
+            // insertion only w/ nothing to overwrite .. act like regular paste (insert text at a location of cursor)
+            newText = [
+              currentText.substring(0, selectionStartPos),
+              pastedText,
+              currentText.substring(selectionStartPos)
+            ].join("")
+          } else if (currentText.replace(selectedText, "").trim().length > 0) {
+              // determined that the entire contents will not be overwritten
+              newText = currentText.replace(selectedText, pastedText).trim()
+          }
+          if (newText.length > 0) {
+            // Not empty... act like regular paste (overwrite selected text)
+            element.value = newText;
+            return
+          }
+          // Fallthrough -- textArea gets a full overwrite
+        }
+        // empty textArea => auto expand bullet
+        const stdBulletRegex = RegExp(/^-\s+(\w+.*);\s+(\w.*\w)--(\w.*)$/m)
+        let stdBulletMatch
+        if (stdBulletMatch = stdBulletRegex.exec(pastedText.trim())) {
+          const frag_action = stdBulletMatch[1]
+          const frag_result = stdBulletMatch[2]
+          const frag_impact = stdBulletMatch[3]
+
+          const separateInternally = (str) => {
+            // weird way of splitting but keeping the splitter symbol as a separate array item
+            return str.split("/")
+              .join("\n/\n")
+              .split(/\s*&\s*/)
+              .join("\n&\n")
+              .split("\n");
+          }
+          const formattedText = [
+            ...separateInternally(frag_action),
+            ";",
+            ...separateInternally(frag_result),
+            "--",
+            ...separateInternally(frag_impact)
+          ].join("\n");
+          // Insert
+          element.value = formattedText;
+        } else {
+          element.value = pastedText;
+        }
+      }
+
       workbench = {
         get value() { return element.value },
         oninput: function(func) { element.addEventListener("input", func) },
+        onpaste: function(func) { element.addEventListener("paste", function (evt) {
+          const clipdata = evt.clipboardData || window.clipboardData;
+          const clipboardData = clipdata.getData('text/plain');
+          debugger
+
+          evt.preventDefault();
+          // Delete any selected text (user overwriting current contents)
+          // const selection = window.getSelection();
+          // if (!selection.rangeCount) return;
+          // selection.deleteFromDocument();
+          // Execute actual handler
+          let selectiontext = (typeof this.selectionStart === "number")
+            ? this.value.slice(this.selectionStart, this.selectionEnd)
+            : "";
+          return func(clipboardData, selectiontext, this.selectionStart);
+        }) },
         triggerInput: function () { element.dispatchEvent(new Event("input")) },
-        focus: function() { element.focus(); }
+        focus: function() { element.focus(); },
+        processPasteOnWorkbench
       }
     }
     return workbench;
@@ -400,6 +471,10 @@ document.onreadystatechange = function () {
         bulletPress(gui.textArea.value).join('')
       );
     });
+    gui.textArea.onpaste((clipboardText, selectionText, selectionStartPos) => {
+      gui.textArea.processPasteOnWorkbench(clipboardText, selectionText, selectionStartPos);
+      gui.textArea.triggerInput();
+    })
     gui.tutorial.showBtn.onclick(() => {
       gui.tutorial.showTutorial();
     })
