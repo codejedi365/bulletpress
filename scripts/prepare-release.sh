@@ -14,12 +14,7 @@ if ! sha256sum --binary bulletpress-*.tgz >> checksums.txt; then
     exit 1
 fi
 
-DEFAULT_KEY_OPT=""
-if npm exec -- is-ci; then
-    DEFAULT_KEY_OPT="--default-key codejedi365+bot@gmail.com"
-fi
-
-if ! eval "gpg $DEFAULT_KEY_OPT --sign --detach-sign checksums.txt"; then
+if ! gpg --output checksums.txt.gpg --detach-sign checksums.txt; then
     error "Failed to digitally-sign checksums file!"
     exit 1
 fi
