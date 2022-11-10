@@ -16,6 +16,8 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+    environment:
+      name: github-pages
     outputs:
       NEW_RELEASE: ${{ steps.semantic-release.outputs.NEW_RELEASE }}
     steps:
@@ -38,6 +40,7 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.BOT_GPG_PASSPHRASE }}
+          fingerprint: ${{ secrets.BOT_GPG_SUBKEY_FINGERPRINT }}
           git_tag_gpgsign: true
 
       - name: Run semantic-release
