@@ -15,6 +15,7 @@
     --dark-warning: rgb(200, 180, 4);
     --dark-success: darkgreen;
     --dark-help-bg: rgb(158, 143, 91);
+    --help-icon-blue: #4472c4;
 }
 
 body * {
@@ -243,3 +244,8 @@ body.light code {
 .accordion-content.normal { transition: all 2s; }
 .accordion-content.fast { transition: all 0.5s; }
 .accordion-content.expanded { margin-top: 0; }
+
+.flasher, .flasher.normal { opacity: 1; transition: opacity 0.75s ease; }
+.flasher.hide { opacity: 0; pointer-events: none; }
+.flasher.slow { transition: opacity 2s ease; }
+.flasher.fast { transition: opacity 0.25s ease; }

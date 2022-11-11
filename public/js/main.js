@@ -1,6 +1,7 @@
 const cap = 764
 const margin = 10
 const MAX_CHARS = 115
+const SECONDS = 1000
 const DestinationPkgEnum = Object.freeze({
   'MyEval': 'MyEval',
   'AF1206': 'AF1206'
@@ -21,10 +22,35 @@ const DestinationPkgEnum = Object.freeze({
 
   function getTutorial() {
     if (tutorial === null) {
-      let btnShowTutorial = document.getElementById('btn-show-tutorial');
-      let btnHideTutorial = document.getElementById('btn-hide-tutorial');
-      let tutorialElement = document.getElementById('tutorial');
-      let tutorialContent = tutorialElement.querySelector(".accordion-content");
+      const btnShowTutorial = document.getElementById('btn-show-tutorial');
+      const btnHideTutorial = document.getElementById('btn-hide-tutorial');
+      const tutorialElement = document.getElementById('tutorial');
+      const tutorialContent = tutorialElement.querySelector(".accordion-content");
+      const tutorialPointer = document.getElementById("guidearrow-tutorial");
+
+      function flashGuideArrow(flashDuration, numFlashes = 1) {
+        // Define callback
+        function flashExecutor(duration, repeat) {
+          this.classList.toggle("hide")
+          if (repeat > 0) {
+            const newArgs = [duration, repeat - 1]
+            setTimeout(
+              flashExecutor.bind(this),
+              duration,
+              ...newArgs
+            )
+          }
+        }
+        const duration = flashDuration / 2 // half it for both side toggles
+        const repetitions = (numFlashes % 2 === 0)
+          ? numFlashes + 1
+          : numFlashes + 2;
+        setTimeout(
+          flashExecutor.bind(tutorialPointer),
+          duration,
+          ...[duration, repetitions]
+        )
+      }
 
       function isVisible() {
         return tutorialContent.classList.contains("expanded");
@@ -46,6 +72,9 @@ const DestinationPkgEnum = Object.freeze({
         isVisible,
         showTutorial,
         hideTutorial,
+        guidearrow: {
+          flash: flashGuideArrow
+        },
         showBtn: {
           onclick: function (func) { btnShowTutorial.addEventListener('click', func); }
         },
@@ -563,5 +592,6 @@ document.onreadystatechange = function () {
       gui.theme.getPreferredColorScheme()
     )
     gui.textArea.triggerInput();
+    gui.tutorial.guidearrow.flash(3 * SECONDS, 3);
   }
 }
