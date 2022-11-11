@@ -14,7 +14,7 @@ const DestinationPkgEnum = Object.freeze({
   let tutorial = null;
   let workbench = null;
   let displayArea = null;
-  let themeSwitch = null;
+  let theme = null;
   let destRuleSet = null;
   let textRuler = null;
   let wordsearch = null;
@@ -151,32 +151,66 @@ const DestinationPkgEnum = Object.freeze({
     return displayArea;
   }
 
-  function getThemeSwitch() {
-    if (themeSwitch === null) {
+  function getTheme() {
+    if (theme === null) {
       let element = document.getElementById('ckbox-light-dark-mode')
       let bodyElement = document.body
 
+      function setColorScheme(scheme) {
+        switch(scheme){
+          case 'dark':
+            bodyElement.classList.remove('light')
+            bodyElement.classList.add('dark')
+            break;
+          case 'light':
+            bodyElement.classList.remove('dark')
+            bodyElement.classList.add('light')
+            break;
+          default:
+            // Default
+            break;
+        }
+      }
+      function getPreferredColorScheme() {
+        if (window.matchMedia) {
+          if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+            return 'dark';
+          } else {
+            return 'light';
+          }
+        }
+        return 'dark'; // webmaster preferred style
+      }
+      function onOSColorSchemeChange(func) {
+        if (window.matchMedia) {
+          let colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          colorSchemeQuery.addEventListener('change', func);
+        }
+      }
       function isDarkMode() { return bodyElement.classList.contains("dark"); }
       function isLightMode() { return bodyElement.classList.contains("light"); }
       function onclick(func) { element.addEventListener("click", func); }
       function changeMode() {
         const isChecked = element.checked
         if (isChecked && !isDarkMode()) {
-          bodyElement.classList.remove('light')
-          bodyElement.classList.add('dark')
+          setColorScheme('dark')
         } else if (!isChecked && !isLightMode()) {
-          bodyElement.classList.remove('dark')
-          bodyElement.classList.add('light')
+          setColorScheme('light')
         }
       }
-      themeSwitch = Object.freeze({
+      theme = Object.freeze({
         isDarkMode,
         isLightMode,
-        onclick,
-        changeMode
+        switch: {
+          onclick
+        },
+        changeMode,
+        onOSColorSchemeChange,
+        getPreferredColorScheme,
+        setColorScheme
       });
     }
-    return themeSwitch;
+    return theme;
   }
 
   function getDestRuleSet() {
@@ -332,16 +366,16 @@ const DestinationPkgEnum = Object.freeze({
     return wordsearch;
   }
 
-  return {
+  return Object.freeze({
     get tutorial() { return getTutorial() },
     get destPkg() { return getDestRuleSet().ruleStyle; },
     get textArea() { return getWorkBench(); },
     get displayArea() { return getDisplayArea(); },
-    get themeSwitch() { return getThemeSwitch(); },
+    get theme() { return getTheme(); },
     get destRuleSet() { return getDestRuleSet(); },
     get textRuler() { return getTextRuler(); },
     get wordsearch() { return getWordSearch(); }
-  };
+  });
 
 }))();
 
@@ -481,8 +515,13 @@ document.onreadystatechange = function () {
     gui.tutorial.hideBtn.onclick(() => {
       gui.tutorial.hideTutorial();
     })
-    gui.themeSwitch.onclick(() => {
-      gui.themeSwitch.changeMode();
+    gui.theme.onOSColorSchemeChange(() => {
+      gui.theme.setColorScheme(
+        gui.theme.getPreferredColorScheme()
+      );
+    })
+    gui.theme.switch.onclick(() => {
+      gui.theme.changeMode();
     });
     gui.destRuleSet.onclick(() => {
       gui.destRuleSet.changeMode();
@@ -520,7 +559,9 @@ document.onreadystatechange = function () {
     })
 
     // Trigger page
-    gui.themeSwitch.changeMode();
+    gui.theme.setColorScheme(
+      gui.theme.getPreferredColorScheme()
+    )
     gui.textArea.triggerInput();
   }
 }
