@@ -1,4 +1,4 @@
-const cap = 764
+const cap = 766.5
 const margin = 10
 const MAX_CHARS = 115
 const SECONDS = 1000
