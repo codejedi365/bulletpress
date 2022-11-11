@@ -15,6 +15,7 @@
     --dark-warning: rgb(200, 180, 4);
     --dark-success: darkgreen;
     --dark-help-bg: rgb(158, 143, 91);
+    --help-icon-blue: #4472c4;
 }
 
 body * {

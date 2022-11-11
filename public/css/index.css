@@ -44,6 +44,14 @@ body.light .github-fork-ribbon::before {
     background-color: var(--light-success);
 }
 
+#guidearrow-tutorial {
+    font-size: xx-large;
+    color: var(--help-icon-blue);
+    font-weight: bold;
+}
+body.dark #guidearrow-tutorial { text-shadow: 0.06ch 0.08ch #00000061; }
+body.light #guidearrow-tutorial { text-shadow: 0.06ch 0.08ch #00000062; }
+
 #bulletpress-editor>fieldset {
     position: relative;
     left: 0px;
