@@ -180,6 +180,8 @@ const DestinationPkgEnum = Object.freeze({
     return displayArea;
   }
 
+  let currentColorScheme = null;
+
   function getTheme() {
     if (theme === null) {
       let element = document.getElementById('ckbox-light-dark-mode')
@@ -188,25 +190,28 @@ const DestinationPkgEnum = Object.freeze({
       function setColorScheme(scheme) {
         switch(scheme){
           case 'dark':
-            bodyElement.classList.remove('light')
-            bodyElement.classList.add('dark')
+            bodyElement.classList.add('dark');
+            bodyElement.classList.remove('light');
+            if (!element.checked) {
+              element.checked = true;
+            }
             break;
           case 'light':
-            bodyElement.classList.remove('dark')
-            bodyElement.classList.add('light')
+            bodyElement.classList.add('light');
+            bodyElement.classList.remove('dark');
+            if (element.checked) {
+              element.removeAttribute('checked');
+            }
             break;
           default:
             // Default
-            break;
+            return;
         }
+        currentColorScheme = scheme;
       }
       function getPreferredColorScheme() {
         if (window.matchMedia) {
-          if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-            return 'dark';
-          } else {
-            return 'light';
-          }
+          return (window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
         return 'dark'; // webmaster preferred style
       }
@@ -216,8 +221,8 @@ const DestinationPkgEnum = Object.freeze({
           colorSchemeQuery.addEventListener('change', func);
         }
       }
-      function isDarkMode() { return bodyElement.classList.contains("dark"); }
-      function isLightMode() { return bodyElement.classList.contains("light"); }
+      function isDarkMode() { return currentColorScheme === 'dark'; }
+      function isLightMode() { return currentColorScheme === 'light'; }
       function onclick(func) { element.addEventListener("click", func); }
       function changeMode() {
         const isChecked = element.checked
