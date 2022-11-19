@@ -200,7 +200,7 @@ const DestinationPkgEnum = Object.freeze({
             bodyElement.classList.add('light');
             bodyElement.classList.remove('dark');
             if (element.checked) {
-              element.removeAttribute('checked');
+              element.checked = false;
             }
             break;
           default:
