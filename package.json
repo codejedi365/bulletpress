@@ -10,7 +10,7 @@
     "commit": "git commit",
     "commit-retry": "CZ_RETRY=true git commit",
     "start": "npm run open & python3 -m http.server --bind 127.0.0.1 --directory ./public",
-    "open": "sleep 3s && open http://127.0.0.1:8000/index.html 2>&1 >/dev/null",
+    "open": "sleep 3 && open http://127.0.0.1:8000/index.html 2>&1 >/dev/null",
     "prepare": "is-ci || husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
