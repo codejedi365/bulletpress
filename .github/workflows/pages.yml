@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
 
   # Send telemetry from build
   report-build-status:
@@ -61,7 +61,7 @@ jobs:
     needs: build
     steps:
       - name: Report Build Status
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
         with:
           emit_telemetry: true
           conclusion: success
