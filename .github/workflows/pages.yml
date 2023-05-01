@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact from Releases
-        uses: dsaltares/fetch-gh-release-asset@1.1.0
+        uses: dsaltares/fetch-gh-release-asset@1.1.1
         with:
           file: bulletpress-.*\.tgz
           regex: true
