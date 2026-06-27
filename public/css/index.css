@@ -64,17 +64,231 @@ body.light #guidearrow-tutorial { text-shadow: 0.06ch 0.08ch #00000062; }
     height: 40ch;
 }
 
+#bulletpress-editor>fieldset>textarea.search-open {
+    padding-right: 34ch;
+    transition: padding-right 2s ease;
+}
+
 .char-overage {
     text-decoration: underline;
     font-weight: bolder;
 }
 
-#bulletpress-editor .storage textarea {
-    height: 8ch;
+/* Storage fieldset */
+.storage {
+    max-width: 118ch;
 }
 
-#bulletpress-editor .storage .workbench-hidden-scalar {
-    height: 8ch;
+.storage .workbench-hidden-scalar {
+    height: 0;
+    overflow: hidden;
+}
+
+.storage-list {
+    overflow: hidden;
+    /* margin-bottom: 0.5ch; */
+    margin-top: 0.4ch;
+    margin-left: 0.5ch;
+    margin-right: 0.7ch;
+    height: 5.35ch;
+    border: 1px solid gray;
+}
+
+.storage-list.storage-expanded {
+    height: auto;
+    min-height: 5ch;
+    max-height: 20ch;
+    overflow-y: auto;
+}
+
+.storage-empty-msg {
+    text-align: center;
+    opacity: 0.5;
+    font-style: italic;
+    padding: 0.75ch 1ch;
+    font-size: small;
+}
+
+.storage-item {
+    position: relative;
+    cursor: pointer;
+    padding: 0.3ch 0.5ch;
+    margin-bottom: 0.2ch;
+    border-radius: 3px;
+}
+
+.storage-item-text {
+    display: block;
+    word-break: break-word;
+    font-size: small;
+}
+
+.storage-item-tray {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0.4ch;
+    display: none;
+    align-items: center;
+    gap: 0.2ch;
+    border-radius: 3px;
+    padding: 0 0.25ch;
+    z-index: 5;
+    font-size: small;
+}
+
+.storage-item.selected .storage-item-tray {
+    display: flex;
+}
+
+.storage-item-btn {
+    cursor: pointer;
+    padding: 0.05ch 0.3ch;
+    border-radius: 3px;
+    line-height: 1.3;
+    user-select: none;
+}
+
+.storage-header-btns {
+    position: absolute;
+    top: -2.1ch;
+    right: 1.5ch;
+    display: flex;
+    align-items: center;
+    gap: 0.6ch;
+    border-radius: 8px 5px 0 0;
+    padding: 0 0.5ch;
+}
+
+.storage-clear-icon {
+    display: inline-block;
+    height: 1em;
+    vertical-align: middle;
+}
+
+.storage-download-btn {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    color: inherit;
+    padding: 0.15ch 0.45ch;
+    font-size: 1.15em;
+    opacity: 0.65;
+    line-height: 1.4;
+}
+
+.storage-download-icon {
+    display: inline-block;
+    height: 1em;
+    vertical-align: middle;
+}
+
+.storage-add-btn {
+    cursor: pointer;
+    padding: 0.15ch 0.45ch;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 1.15em;
+    background: transparent;
+    color: inherit;
+    opacity: 0.65;
+    line-height: 1.4;
+}
+
+.storage-clear-btn {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    color: inherit;
+    padding: 0.15ch 0.45ch;
+    font-size: 1.15em;
+    opacity: 0.65;
+    line-height: 1.4;
+}
+
+.storage-view-toggle-btn {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    color: inherit;
+    padding: 0.15ch 0.45ch;
+    font-size: 1.15em;
+    opacity: 0.65;
+    line-height: 1.4;
+}
+
+.storage-add-btn:hover,
+.storage-clear-btn:hover,
+.storage-download-btn:hover,
+.storage-view-toggle-btn:hover {
+    border-color: currentColor;
+    opacity: 1;
+}
+
+.storage-download-btn:disabled,
+.storage-download-btn:disabled:hover,
+.storage-clear-btn:disabled,
+.storage-clear-btn:disabled:hover {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+    border-color: transparent;
+}
+
+.view-expand-icon {
+    display: inline-block;
+    font-size: 1em;
+}
+
+.view-compress-icon {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: 1.15em;
+}
+
+.storage-view-toggle-btn.is-expanded .view-expand-icon   { display: none; }
+.storage-view-toggle-btn.is-expanded .view-compress-icon { display: inline-flex; }
+
+.storage-edit-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4ch;
+    margin-bottom: 0.5ch;
+}
+
+.storage-edit-textarea {
+    flex: 1;
+    resize: vertical;
+    min-height: 3em;
+    padding: 0.3ch 0.5ch;
+    border-radius: 3px;
+    font-size: small;
+    border: 1px solid;
+}
+
+.storage-edit-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25ch;
+}
+
+.storage-edit-save,
+.storage-edit-cancel {
+    cursor: pointer;
+    padding: 0.2ch 0.5ch;
+    border-radius: 3px;
+    font-size: 1em;
+    line-height: 1.5;
+    user-select: none;
+    text-align: center;
+    border: 1px solid;
+    background: transparent;
+    color: inherit;
 }
 
 .workbench-hidden-scalar {
@@ -107,6 +321,58 @@ body.light #guidearrow-tutorial { text-shadow: 0.06ch 0.08ch #00000062; }
 
 .pixelwidth #displayArea .warning-font {
     font-weight: normal;
+}
+
+.performancebrief {
+    font-family: "Consolas", monospace;
+    font-size: 11pt;
+    line-height: 1.2;
+}
+
+.performancebrief .workbench-hidden-scalar {
+    width: 116ch;
+}
+
+.performancebrief #displayArea {
+    width: 117.5ch !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.perf-brief-item {
+    margin-bottom: 1.5em;
+    padding: 0.25em 0.5ch;
+    border-radius: 3px;
+    cursor: default;
+}
+
+.hlr-toggle-container {
+    display: none;
+    text-align: center;
+    margin: 0.75em 0 0.5em;
+}
+
+.performancebrief .hlr-toggle-container {
+    display: inline-block;
+}
+
+.style-btn {
+    display: none;
+    cursor: pointer;
+    padding: 0.25em 0.5ch;
+    font-style: italic;
+}
+
+.style-btn-active {
+    display: inline;
+    font-weight: bold;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.style-btn-sep {
+    display: none;
+    opacity: 0.5;
 }
 
 fieldset {
@@ -209,12 +475,66 @@ legend {
     display: none;
 }
 
+.open-search-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.4ch;
+}
+
+.close-search-tab {
+    height: 4ch;
+    font-size: large;
+}
+
+.tab-book-icon {
+    cursor: pointer;
+    padding: 0.1ch 0.3ch;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.75;
+    vertical-align: middle;
+}
+
+.tab-book-icon:hover {
+    border-color: currentColor;
+    opacity: 1;
+}
+
 .search-tab input:checked+label .open-search-tab {
     display: none;
 }
 
 .search-tab input:checked+label .close-search-tab {
     display: inline-block;
+}
+
+.clear-workbench-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 0.1ch 0.3ch;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.75;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.clear-workbench-btn:hover {
+    border-color: currentColor;
+    opacity: 1;
+}
+
+.clear-workbench-btn:focus {
+    outline: none;
+    border-color: transparent;
 }
 
 @-webkit-keyframes fadeInDown {
@@ -426,3 +746,666 @@ body.light .search-dialog {
     font-weight: bold;
     background-color: transparent;
 }
+
+/* Preview items (all modes) */
+.preview-item {
+    position: relative;
+    cursor: pointer;
+    padding: 0.25em 0.5ch;
+    border-radius: 3px;
+}
+
+.preview-item-tray {
+    position: absolute;
+    top: 0.2em;
+    right: 0.4ch;
+    display: none;
+    align-items: center;
+    gap: 0.3ch;
+    border-radius: 3px;
+    padding: 0.1ch 0.35ch;
+    z-index: 5;
+}
+
+.preview-item.selected .preview-item-tray {
+    display: flex;
+}
+
+.tray-btn {
+    cursor: pointer;
+    padding: 0.1ch 0.35ch;
+    border-radius: 3px;
+    font-size: 1em;
+    line-height: 1.4;
+    user-select: none;
+}
+
+/* Custom context menu */
+#preview-context-menu,
+#storage-context-menu,
+#tag-bank-context-menu {
+    position: fixed;
+    z-index: 1000;
+    min-width: 14ch;
+    border-radius: 4px;
+    border: 1px solid;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+/* Tag bank context menu must sit above the tag dialog overlay (z-index: 1500) */
+#tag-bank-context-menu {
+    z-index: 2000;
+}
+
+#preview-context-menu.visible,
+#storage-context-menu.visible,
+#tag-bank-context-menu.visible {
+    display: block;
+}
+
+.context-menu-item {
+    padding: 0.45ch 1ch;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.storage-item-btn.btn-disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Drag-and-drop reordering */
+.storage-item.drag-source {
+    display: none;
+}
+
+.storage-item.drag-placeholder {
+    border: 1.5px dashed;
+    background: transparent !important;
+    border-radius: 3px;
+    box-sizing: border-box;
+    opacity: 0.6;
+    margin-bottom: 0.2ch;
+}
+
+/* Confirm overlay dialog */
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-overlay.overlay-visible {
+    display: flex;
+}
+
+.confirm-dialog {
+    padding: 1.5ch 2.5ch;
+    border-radius: 6px;
+    min-width: 24ch;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.confirm-dialog p {
+    margin-bottom: 1ch;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 1ch;
+    justify-content: center;
+}
+
+.confirm-yes,
+.confirm-no {
+    cursor: pointer;
+    padding: 0.4ch 1.5ch;
+    border-radius: 4px;
+    border: 1px solid;
+    background: transparent;
+    color: inherit;
+}
+
+/* Tag dialog */
+.tag-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-dialog-panel {
+    /* width: min(90vw, 70ch); */
+    max-height: 88vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 1.5ch 2ch;
+    border: 1px solid;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.tag-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1ch;
+}
+
+.tag-dialog-title {
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.tag-dialog-close-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: inherit;
+    opacity: 0.7;
+    padding: 0.1ch 0.45ch;
+    line-height: 1.4;
+}
+
+.tag-dialog-close-btn:hover {
+    opacity: 1;
+    border-color: currentColor;
+}
+
+.tag-dialog-card {
+    padding: 0.75ch 1ch;
+    border-radius: 5px;
+    margin-bottom: 1ch;
+    min-height: 3ch;
+    border: 1.5px dashed transparent;
+    transition: border-color 0.15s;
+}
+
+.tag-dialog-card .tag-dialog-hidden-scalar {
+    height: 0;
+    overflow: hidden;
+    width: 92ch;
+}
+
+.tag-dialog-card.drag-active {
+    border-style: dashed;
+}
+
+.tag-dialog-applied {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4ch;
+    /* min-height removed: collapses when empty, expands smoothly when tags are applied */
+    transition: min-height 0.15s ease;
+}
+
+.tag-dialog-applied:not(:empty) {
+    margin-bottom: 0.5ch;
+}
+
+.tag-dialog-bullet-preview {
+    word-break: break-word;
+    font-size: small;
+    font-family: "Consolas", monospace;
+}
+
+.tag-bank-label {
+    font-size: small;
+    opacity: 0.7;
+    margin-bottom: 0.4ch;
+    margin-top: 0.5ch;
+}
+
+.tag-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5ch;
+    margin-bottom: 1ch;
+    min-height: 2em;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15em 0.75em;
+    border-radius: 1em;
+    font-size: 0.82em;
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
+    line-height: 1.6;
+    border: 1px solid transparent;
+}
+
+.tag-pill[draggable="true"] {
+    cursor: grab;
+}
+
+.tag-pill[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.tag-add-row {
+    margin-bottom: 0.75ch;
+}
+
+.tag-form-row {
+    display: flex;
+    align-items: center;
+    gap: 2ch;
+}
+
+.tag-form-row .tag-color-params {
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+    margin-right: 5ch;
+}
+
+.tag-form-row .tag-form-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+}
+
+.tag-custom-form {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0.5ch 0.75ch;
+    margin-top: 0.25ch;
+}
+
+.tag-add-new-btn {
+    background: none;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.25ch 0.8ch;
+    font-size: small;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.tag-add-new-btn:hover {
+    opacity: 1;
+}
+
+.tag-custom-form {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0.75ch 1ch;
+    margin-bottom: 0.5ch;
+}
+
+.tag-name-input {
+    flex: 1;
+    min-width: 6ch;
+    padding: 0.3ch 0.5ch;
+    border-radius: 3px;
+    border: 1px solid;
+    box-sizing: border-box;
+    background: inherit;
+    color: inherit;
+    font-size: small;
+}
+
+.tag-color-row {
+    display: flex;
+    align-items: center;
+    gap: 0ch;
+    margin-bottom: 0.6ch;
+}
+
+.tag-hex-input {
+    width: 9ch;
+    max-width: 9ch;
+    flex-shrink: 0;
+    padding: 0.3ch 0.5ch;
+    border-radius: 3px;
+    border: 1px solid;
+    background: inherit;
+    color: inherit;
+    font-family: monospace;
+    font-size: small;
+    box-sizing: border-box;
+}
+
+.tag-color-preview {
+    width: 2ch;
+    height: 2ch;
+    margin: 0 0.5ch;
+    border-radius: 3px;
+    border: 1px solid;
+    flex-shrink: 0;
+}
+
+.tag-random-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0 0.4ch;
+    font-size: 2ch;
+    color: inherit;
+    line-height: 1.5;
+    flex-shrink: 0;
+}
+
+.tag-random-btn:hover {
+    border-color: currentColor;
+    opacity: 1;
+}
+
+.tag-form-actions {
+    display: flex;
+    gap: 0.5ch;
+}
+
+.tag-form-save,
+.tag-form-cancel {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 0.2ch 0.6ch;
+    background: transparent;
+    color: inherit;
+    font-size: 1em;
+    line-height: 1.4;
+    flex-shrink: 0;
+}
+
+.tag-form-save:hover,
+.tag-form-cancel:hover {
+    border-color: currentColor;
+}
+
+/* Announcement box */
+.app-announcement {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75ch;
+    padding: 0.75ch 1ch;
+    border-radius: 5px;
+    border: 1px solid;
+    font-size: small;
+    flex-wrap: wrap;
+    max-width: 127ch;
+    margin: 1ch auto;
+    width: fit-content;
+    overflow: hidden;
+    /* box-sizing ensures measured height includes padding for the collapse animation */
+    box-sizing: border-box;
+}
+
+/* Step 1: instantly hide visible content while keeping box geometry */
+.app-announcement.announcement-hiding {
+    visibility: hidden;
+}
+
+/* Step 2: collapse the box geometry (applied one frame after .announcement-hiding) */
+.app-announcement.announcement-collapsing {
+    visibility: hidden;
+    transition: height 0.35s ease, padding-top 0.35s ease, padding-bottom 0.35s ease,
+                margin-top 0.35s ease, margin-bottom 0.35s ease, border-top-width 0.35s ease,
+                border-bottom-width 0.35s ease;
+}
+
+.announcement-text {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.5;
+}
+
+.announcement-close-btn {
+    align-self: flex-start;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    color: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 0.8;
+    padding: 0.2ch 0.4ch;
+}
+
+.announcement-close-btn:hover {
+    border-color: currentColor;
+}
+
+body.dark .app-announcement {
+    background-color: #5a4500;
+    color: #fff3cd;
+    border-color: #d68910;
+}
+
+body.dark .app-announcement a {
+    color: #ffd966;
+}
+
+body.light .app-announcement {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffc107;
+}
+
+body.light .app-announcement a {
+    color: #6d4c00;
+}
+
+/* Toast notification system */
+#toast-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: flex-end;
+    pointer-events: none;
+    /* Prevent the container from growing taller than the viewport */
+    max-height: calc(100vh - 2rem);
+    overflow: hidden;
+}
+
+.toast {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+    box-sizing: border-box;
+    display: flex;
+    font-size: small;
+    gap: 0.4em;
+    line-height: 1.4;
+    max-width: 300px;
+    max-height: fit-content;
+    opacity: 0;
+    padding: 0.45em 0.7em;
+    pointer-events: all;
+    transform: translateX(110%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.toast-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.toast-hiding {
+    opacity: 0;
+    transform: translateX(110%);
+}
+
+.toast-message {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+}
+
+.toast-close-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    color: inherit;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.8;
+    width: 1.4em;
+    height: 1.4em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.toast-close-btn:hover {
+    opacity: 1;
+    border-color: currentColor;
+}
+
+/* Dark mode toast colors */
+body.dark .toast-success {
+    background-color: #1a5c1a;
+    color: #d4edda;
+    border-color: #1e7e34;
+}
+
+body.dark .toast-error {
+    background-color: #6b1414;
+    color: #f8d7da;
+    border-color: #c0392b;
+}
+
+body.dark .toast-warning {
+    background-color: #5a4500;
+    color: #fff3cd;
+    border-color: #d68910;
+}
+
+/* Light mode toast colors */
+body.light .toast-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+body.light .toast-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+body.light .toast-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+.storage-item-length-badge {
+    font-size: 0.82em;
+    opacity: 0.7;
+    font-family: monospace;
+    white-space: nowrap;
+    letter-spacing: -0.03em;
+}
+
+/* Settings gear button */
+.settings-gear-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 3ch;
+    padding: 0.1ch 0.35ch;
+    color: inherit;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.settings-gear-btn:hover {
+    border-color: currentColor;
+}
+
+/* Settings dropdown panel */
+.settings-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.25em);
+    min-width: 20ch;
+    border-radius: 4px;
+    border: 1px solid;
+    z-index: 500;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 0.4ch 0;
+}
+
+.settings-item {
+    padding: 0.55ch 1.5ch;
+    white-space: nowrap;
+}
+
+.settings-item-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5ch;
+    padding: 0.75ch 1.5ch;
+}
+
+.settings-item-label {
+    font-size: small;
+}
+
+.settings-action-btn {
+    cursor: pointer;
+    font-size: small;
+    user-select: none;
+}
+
+.settings-divider {
+    margin: 0.35ch 0;
+    border: none;
+    border-top: 1px solid;
+    opacity: 0.25;
+}
+
+/* Scale the toggle down inside the settings dropdown */
+.settings-toggle-switch label {
+    transform: scale(1.1);
+    margin-right: 0.5ch;
+}
+
+body.dark .settings-action-btn:hover {
+    background-color: var(--dark-secondary-bg);
+}
+
+body.light .settings-action-btn:hover {
+    background-color: var(--light-secondary-bg);
+}
+
+body.dark .settings-danger {
+    color: var(--dark-error);
+}
+
+body.light .settings-danger {
+    color: var(--light-error);
+}
+

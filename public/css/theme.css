@@ -7,6 +7,8 @@
     --light-warning: rgb(203, 147, 18);
     --light-success: green;
     --light-help-bg: rgb(253, 239, 191);
+    --light-pb-hover: #E8E8E8;
+    --light-item-selected: #D4D4D4;
     --dark-primary-bg: #333333;
     --dark-secondary-bg: #555555;
     --dark-tertiary-bg: #AAAAAA;
@@ -15,6 +17,8 @@
     --dark-warning: rgb(200, 180, 4);
     --dark-success: darkgreen;
     --dark-help-bg: rgb(158, 143, 91);
+    --dark-pb-hover: #444444;
+    --dark-item-selected: #4A4A4A;
     --help-icon-blue: #4472c4;
 }
 
@@ -71,6 +75,10 @@ body.dark .success-font {
     font-weight: bolder;
 }
 
+body.dark .perf-brief-item:hover {
+    background-color: var(--dark-pb-hover);
+}
+
 body.light {
     background-color: var(--dark-fg);
     color: var(--light-fg);
@@ -114,6 +122,10 @@ body.light .success-font {
     font-weight: bolder;
 }
 
+body.light .perf-brief-item:hover {
+    background-color: var(--light-pb-hover);
+}
+
 body.dark .dark-theme-show {
     display: initial;
 }
@@ -123,13 +135,13 @@ body.light .light-theme-show {
 }
 
 body.dark code {
-    background-color: var(--dark-tertiary-bg);
+    background-color: var(--dark-secondary-bg);
     padding: 0.25ch;
     border-radius: 0.5ch;
 }
 
 body.light code {
-    background-color: var(--light-tertiary-bg);
+    background-color: var(--light-secondary-bg);
     padding: 0.25ch;
     border-radius: 0.5ch;
 }
@@ -238,14 +250,254 @@ body.light code {
 }
 .accordion-close-btn hr { border-top: 2px solid; }
 
-.accordion { overflow: hidden; }
-.accordion-content { margin-top: -200%; transition: all 2s; }
-.accordion-content.slow { transition: all 5s; }
-.accordion-content.normal { transition: all 2s; }
-.accordion-content.fast { transition: all 0.5s; }
-.accordion-content.expanded { margin-top: 0; }
+.accordion { overflow: hidden; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 2s; }
+.accordion:has(.accordion-content.slow) { transition: grid-template-rows 5s; }
+.accordion:has(.accordion-content.normal) { transition: grid-template-rows 2s; }
+.accordion:has(.accordion-content.fast) { transition: grid-template-rows 0.5s; }
+.accordion:has(.accordion-content.expanded) { grid-template-rows: 1fr; }
+.accordion-content { min-height: 0; overflow: hidden; }
 
 .flasher, .flasher.normal { opacity: 1; transition: opacity 0.75s ease; }
 .flasher.hide { opacity: 0; pointer-events: none; }
 .flasher.slow { transition: opacity 2s ease; }
 .flasher.fast { transition: opacity 0.25s ease; }
+
+/* Preview item hover — myEval/AF1206 (PB already covered by .perf-brief-item:hover) */
+body.dark .preview-item:not(.perf-brief-item):hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light .preview-item:not(.perf-brief-item):hover {
+    background-color: var(--light-pb-hover);
+}
+
+/* Preview item selected state */
+body.dark .preview-item.selected {
+    background-color: var(--dark-item-selected);
+}
+body.light .preview-item.selected {
+    background-color: var(--light-item-selected);
+}
+
+/* Tray overlay */
+body.dark .preview-item.selected .preview-item-tray {
+    background-color: var(--dark-secondary-bg);
+    border: 1px solid var(--dark-tertiary-bg);
+}
+body.light .preview-item.selected .preview-item-tray {
+    background-color: var(--light-secondary-bg);
+    border: 1px solid var(--light-tertiary-bg);
+}
+
+body.dark .tray-btn:hover {
+    background-color: var(--dark-tertiary-bg);
+    color: var(--dark-primary-bg);
+}
+body.light .tray-btn:hover {
+    background-color: var(--light-tertiary-bg);
+    color: var(--light-primary-bg);
+}
+
+/* Custom context menu */
+body.dark #preview-context-menu,
+body.dark #storage-context-menu,
+body.dark #tag-bank-context-menu {
+    background-color: var(--dark-secondary-bg);
+    border-color: var(--dark-tertiary-bg);
+    color: var(--dark-fg);
+}
+body.dark .context-menu-item:hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light #preview-context-menu,
+body.light #storage-context-menu,
+body.light #tag-bank-context-menu {
+    background-color: var(--light-primary-bg);
+    border-color: var(--light-tertiary-bg);
+    color: var(--light-fg);
+}
+body.light .context-menu-item:hover {
+    background-color: var(--light-pb-hover);
+}
+body.dark .storage-item.drag-placeholder {
+    border-color: var(--dark-fg);
+}
+body.light .storage-item.drag-placeholder {
+    border-color: var(--light-fg);
+}
+
+/* Storage items */
+body.dark .storage-item:hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light .storage-item:hover {
+    background-color: var(--light-pb-hover);
+}
+body.dark .storage-item.selected {
+    background-color: var(--dark-item-selected);
+}
+body.light .storage-item.selected {
+    background-color: var(--light-item-selected);
+}
+body.dark .storage-item.selected .storage-item-tray {
+    background-color: var(--dark-secondary-bg);
+    border: 1px solid var(--dark-tertiary-bg);
+}
+body.light .storage-item.selected .storage-item-tray {
+    background-color: var(--light-secondary-bg);
+    border: 1px solid var(--light-tertiary-bg);
+}
+body.dark .storage-item-btn:hover {
+    background-color: var(--dark-tertiary-bg);
+    color: var(--dark-primary-bg);
+}
+body.light .storage-item-btn:hover {
+    background-color: var(--light-tertiary-bg);
+    color: var(--light-primary-bg);
+}
+body.dark .storage-add-btn {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .storage-add-btn {
+    border-color: var(--light-tertiary-bg);
+}
+body.dark .storage-add-btn:hover,
+body.dark .storage-view-toggle-btn:hover,
+body.dark .storage-clear-btn:hover {
+    opacity: 1;
+    border-color: var(--dark-primary-bg);
+}
+body.light .storage-add-btn:hover,
+body.light .storage-view-toggle-btn:hover,
+body.light .storage-clear-btn:hover {
+    opacity: 1;
+    border-color: var(--light-primary-bg);
+}
+body.dark .storage-view-toggle-btn:hover {
+    color: var(--dark-fg);
+}
+body.light .storage-view-toggle-btn:hover {
+    color: var(--light-fg);
+}
+body.dark .storage-clear-btn:hover {
+    color: var(--dark-error);
+}
+body.light .storage-clear-btn:hover {
+    color: var(--light-error);
+}
+body.dark .storage-edit-textarea {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .storage-edit-textarea {
+    border-color: var(--light-tertiary-bg);
+}
+body.dark .storage-edit-save:hover,
+body.dark .storage-edit-cancel:hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light .storage-edit-save:hover,
+body.light .storage-edit-cancel:hover {
+    background-color: var(--light-pb-hover);
+}
+body.dark .storage-edit-save,
+body.dark .storage-edit-cancel {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .storage-edit-save,
+body.light .storage-edit-cancel {
+    border-color: var(--light-tertiary-bg);
+}
+
+/* Confirm dialog */
+body.dark .confirm-yes,
+body.dark .confirm-no {
+    border-color: var(--dark-tertiary-bg);
+}
+body.dark .confirm-yes:hover {
+    background-color: var(--dark-error);
+    border-color: var(--dark-error);
+    color: var(--dark-fg);
+}
+body.dark .confirm-no:hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light .confirm-yes,
+body.light .confirm-no {
+    border-color: var(--light-tertiary-bg);
+}
+body.light .confirm-yes:hover {
+    background-color: var(--light-error);
+    border-color: var(--light-error);
+    color: var(--light-primary-bg);
+}
+body.light .confirm-no:hover {
+    background-color: var(--light-pb-hover);
+}
+
+/* Tag dialog */
+body.dark .tag-dialog-panel {
+    border-color: var(--dark-secondary-bg);
+}
+body.light .tag-dialog-panel {
+    border-color: var(--light-secondary-bg);
+}
+
+body.dark .tag-dialog-card {
+    border-color: transparent;
+}
+body.light .tag-dialog-card {
+    border-color: transparent;
+}
+body.dark .tag-dialog-card.drag-active {
+    border-color: var(--dark-fg);
+}
+body.light .tag-dialog-card.drag-active {
+    border-color: var(--light-fg);
+}
+
+body.dark .tag-custom-form {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .tag-custom-form {
+    border-color: var(--light-tertiary-bg);
+}
+body.dark .tag-name-input,
+body.dark .tag-hex-input {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .tag-name-input,
+body.light .tag-hex-input {
+    border-color: var(--light-tertiary-bg);
+}
+body.dark .tag-color-preview {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .tag-color-preview {
+    border-color: var(--light-tertiary-bg);
+}
+body.dark .tag-add-new-btn {
+    border-color: var(--dark-tertiary-bg);
+}
+body.dark .tag-random-btn:hover,
+body.dark .tag-add-new-btn:hover,
+body.dark .tag-form-save:hover,
+body.dark .tag-form-cancel:hover {
+    background-color: var(--dark-pb-hover);
+}
+body.light .tag-random-btn,
+body.light .tag-add-new-btn,
+body.light .tag-form-save,
+body.light .tag-form-cancel {
+    border-color: var(--light-tertiary-bg);
+}
+body.light .tag-random-btn:hover,
+body.light .tag-add-new-btn:hover,
+body.light .tag-form-save:hover,
+body.light .tag-form-cancel:hover {
+    background-color: var(--light-pb-hover);
+}
+body.dark .tag-dialog-close-btn:hover {
+    border-color: var(--dark-tertiary-bg);
+}
+body.light .tag-dialog-close-btn:hover {
+    border-color: var(--light-tertiary-bg);
+}
