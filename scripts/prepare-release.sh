@@ -14,7 +14,7 @@ if ! sha256sum --binary bulletpress-*.tgz >> checksums.txt; then
     exit 1
 fi
 
-if ! gpg --output checksums.txt.gpg --detach-sign checksums.txt; then
-    error "Failed to digitally-sign checksums file!"
-    exit 1
-fi
+# if ! gpg --output checksums.txt.gpg --detach-sign checksums.txt; then
+#     error "Failed to digitally-sign checksums file!"
+#     exit 1
+# fi
